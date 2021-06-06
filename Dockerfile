@@ -1,17 +1,15 @@
 FROM node:14 AS builder
-#COPY . /src
-#WORKDIR /src
-#RUN npm install
-#RUN npm run build
-# set working directory
-RUN mkdir /usr/src/app
-WORKDIR /usr/src/app
+#RUN mkdir /usr/src/app
+COPY src /usr/src/app/src
+COPY public /usr/src/app/public
+COPY package.json /usr/src/app/
 
-# add `/usr/src/app/node_modules/.bin` to $PATH
-ENV PATH /usr/src/app/node_modules/.bin:$PATH
+WORKDIR /usr/src/app/
+
+
 
 # install and cache app dependencies
-COPY package.json /usr/src/app/package.json
+
 RUN npm install
 RUN npm install -g @vue/cli
 # start app
